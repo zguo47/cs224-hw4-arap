@@ -68,6 +68,37 @@ For this project, we ask that you demonstrate to us that your program achieves t
 | Attempting to deform `tetrahedron.obj` should not cause it to collapse or behave erratically.                                                                             | ![](./readme-videos/tetrahedron.gif) |
 | Attempting to deform a (large) mesh like `bunny.obj` or `peter.obj` should not cause your code to crash.                                                                  | ![](./readme-videos/peter.gif)       |
 
+### My Videos
+
+
+https://github.com/brown-cs-224/arap-zguo47/assets/98437903/00e8587e-370d-4dd6-938f-ff107e9bf59a
+
+
+
+https://github.com/brown-cs-224/arap-zguo47/assets/98437903/eb8758af-a46e-4bb1-99c0-8cd7968480ee
+
+
+
+
+https://github.com/brown-cs-224/arap-zguo47/assets/98437903/096e55d0-54a6-46a0-9042-4382f8e455d7
+
+
+
+
+https://github.com/brown-cs-224/arap-zguo47/assets/98437903/f646a087-8048-4cc6-8440-050cff6c7daf
+
+
+
+
+https://github.com/brown-cs-224/arap-zguo47/assets/98437903/89f9c41c-b46a-4e5e-8c00-01cda9125c94
+
+
+
+
+https://github.com/brown-cs-224/arap-zguo47/assets/98437903/e6d5e8b3-2a05-46e6-afb3-8f6e3294a160
+
+
+
 <details>
   <summary>How should I generate these example videos?</summary>
 
