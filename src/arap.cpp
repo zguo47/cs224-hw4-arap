@@ -18,7 +18,7 @@ void ARAP::init(Eigen::Vector3f &coeffMin, Eigen::Vector3f &coeffMax)
     vector<Vector3i> triangles;
 
     // If this doesn't work for you, remember to change your working directory
-    if (MeshLoader::loadTriMesh("meshes/peter.obj", vertices, triangles)) {
+    if (MeshLoader::loadTriMesh("meshes/sphere.obj", vertices, triangles)) {
         m_shape.init(vertices, triangles);
 
         vertexToNeighbor.clear();
@@ -89,7 +89,7 @@ void ARAP::move(int vertex, Vector3f targetPosition)
     int iter = 0;
     float bestenergy = std::numeric_limits<float>::infinity();
     std::vector<Eigen::Vector3f> best_est;
-    while (iter < 1){
+    while (iter < 10){
         // Compute the best-fit rotation matrices R
         computeBestFitRotations(new_vertices);
 
@@ -259,7 +259,29 @@ float ARAP::optimizePositions(std::vector<Eigen::Vector3f> deformedVertices) {
     applyConstraints(deformedVertices, b);
 
     // Solve the linear system Lp' = b
-    Eigen::MatrixXf pPrime = m_LDecomposition.solve(b);
+    // Eigen::MatrixXf pPrime = m_LDecomposition.solve(b);
+    // Define pPrime as a matrix of floats
+    Eigen::MatrixXf pPrime(numVertices, 3);
+
+// Perform the solve operation in parallel for each coordinate
+#pragma omp parallel sections
+    {
+#pragma omp section
+        {
+            // Solve for the x-coordinates
+            pPrime.col(0) = m_LDecomposition.solve(b.col(0));
+        }
+#pragma omp section
+        {
+            // Solve for the y-coordinates
+            pPrime.col(1) = m_LDecomposition.solve(b.col(1));
+        }
+#pragma omp section
+        {
+            // Solve for the z-coordinates
+            pPrime.col(2) = m_LDecomposition.solve(b.col(2));
+        }
+    }
 
     // Update the deformed vertex positions in the shape
     std::vector<Eigen::Vector3f> new_vertices;
