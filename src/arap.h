@@ -3,6 +3,8 @@
 #include "graphics/shape.h"
 #include "Eigen/StdList"
 #include "Eigen/StdVector"
+#include "map"
+#include <Eigen/Sparse>
 
 class Shader;
 
@@ -16,6 +18,23 @@ public:
 
     void init(Eigen::Vector3f &min, Eigen::Vector3f &max);
     void move(int vertex, Eigen::Vector3f pos);
+    void computeCotangentWeight();
+    void setLMatrix();
+    void computeBestFitRotations(std::vector<Eigen::Vector3f> deformedVertices);
+    void applyLMatrixConstraints(Eigen::SparseMatrix<float> &L);
+    float optimizePositions(std::vector<Eigen::Vector3f> deformedVertices);
+    void applyConstraints(std::vector<Eigen::Vector3f> deformedVertices, Eigen::MatrixXf &b);
+    void update();
+
+    std::vector<Eigen::Vector3f> initial_vertices;
+    std::map<int, std::vector<int>> vertexToNeighbor;
+    std::map<std::pair<int, int>, float> edgeToCotWeight;
+    Eigen::SparseMatrix<float> m_LMatrix;
+    Eigen::SimplicialLDLT<Eigen::SparseMatrix<float>> m_LDecomposition;
+    std::vector<Eigen::Matrix3f> m_rotations;
+    std::unordered_set<int> ori_anchors;
+    std::vector<Eigen::Vector3f> curr_est;
+    bool startmoving = false;
 
     // ================== Students, If You Choose To Modify The Code Below, It's On You
 

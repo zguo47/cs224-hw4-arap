@@ -241,6 +241,8 @@ void GLWidget::mouseReleaseEvent(QMouseEvent *event)
 
     m_rightCapture = false;
     m_rightClickSelectMode = SelectMode::None;
+
+    m_arap.update();
 }
 
 void GLWidget::wheelEvent(QWheelEvent *event)

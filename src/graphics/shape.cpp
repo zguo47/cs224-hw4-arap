@@ -155,6 +155,9 @@ SelectMode Shape::select(Shader *shader, int closest_vertex)
 
 bool Shape::selectWithSpecifiedMode(Shader *shader, int closest_vertex, SelectMode mode)
 {
+    if (closest_vertex == -1){
+        return false;
+    }
     switch (mode) {
     case SelectMode::None: {
         return false;
