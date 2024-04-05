@@ -61,12 +61,12 @@ For this project, we ask that you demonstrate to us that your program achieves t
 
 | Program Specification                                                                                                                                                     | Our Example                          |
 | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :----------------------------------- |
-| Anchoring exactly one point, then moving that point, results in perfectly rigid motion (mostly translation, though some rotation for smaller meshes is acceptable).       | ![](./readme-videos/mysphere.mov)      |
-| Anchoring exactly two points, then rotating one point around the other at a fixed distance, results in perfectly rigid rotation.                                          | ![](./readme-videos/myteapot.mov)      |
-| Deformations are "permanent"; i.e. un-anchoring previously moved points leaves the mesh in its deformed state, and further deformations can be made on the deformed mesh. | ![](./readme-videos/mybean.mov)        |
-| You should be able to make the armadillo wave.                                                                                                                            | ![](./readme-videos/myarmadillo.mov)   |
-| Attempting to deform `tetrahedron.obj` should not cause it to collapse or behave erratically.                                                                             | ![](./readme-videos/mytetrahedron.mov) |
-| Attempting to deform a (large) mesh like `bunny.obj` or `peter.obj` should not cause your code to crash.                                                                  | ![](./readme-videos/mypeter.mov)       |
+| Anchoring exactly one point, then moving that point, results in perfectly rigid motion (mostly translation, though some rotation for smaller meshes is acceptable).       | ![](./readme-videos/sphere.gif)      |
+| Anchoring exactly two points, then rotating one point around the other at a fixed distance, results in perfectly rigid rotation.                                          | ![](./readme-videos/teapot.gif)      |
+| Deformations are "permanent"; i.e. un-anchoring previously moved points leaves the mesh in its deformed state, and further deformations can be made on the deformed mesh. | ![](./readme-videos/bean.gif)        |
+| You should be able to make the armadillo wave.                                                                                                                            | ![](./readme-videos/armadillo.gif)   |
+| Attempting to deform `tetrahedron.obj` should not cause it to collapse or behave erratically.                                                                             | ![](./readme-videos/tetrahedron.gif) |
+| Attempting to deform a (large) mesh like `bunny.obj` or `peter.obj` should not cause your code to crash.                                                                  | ![](./readme-videos/peter.gif)       |
 
 <details>
   <summary>How should I generate these example videos?</summary>
