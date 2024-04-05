@@ -94,13 +94,21 @@ https://github.com/brown-cs-224/arap-zguo47/assets/98437903/89f9c41c-b46a-4e5e-8
 
 
 
+https://github.com/brown-cs-224/arap-zguo47/assets/98437903/761b4afd-137c-4673-af7c-f96ebcb0b34f
 
-https://github.com/brown-cs-224/arap-zguo47/assets/98437903/e6d5e8b3-2a05-46e6-afb3-8f6e3294a160
+
+
 
 
 ### My Implementation
 To run my program, simply change the file path for a certain mesh, and click run. 
-I implement all required features for ARAP, computing cotangenet weights, setting L matrix, applying user constraint, computing Cholesky decomposition, and iterative solving. I also implement partial parallelization, using #pragma omp parallel for. 
+I implement all required features for ARAP, computing cotangenet weights, setting L matrix, applying user constraint, computing Cholesky decomposition, and iterative solving. I also implement code parallelization, using #pragma omp parallel for and solving the linear systems for each coordinate (x, y, z) in parallel. 
+The below is peter with parallel code, seems to be a bit faster. 
+
+
+https://github.com/brown-cs-224/arap-zguo47/assets/98437903/82a03bde-4cf9-4ab3-9c50-99ba7ef246ae
+
+
 
 <details>
   <summary>How should I generate these example videos?</summary>
