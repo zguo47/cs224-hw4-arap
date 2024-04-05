@@ -18,7 +18,7 @@ void ARAP::init(Eigen::Vector3f &coeffMin, Eigen::Vector3f &coeffMax)
     vector<Vector3i> triangles;
 
     // If this doesn't work for you, remember to change your working directory
-    if (MeshLoader::loadTriMesh("meshes/sphere.obj", vertices, triangles)) {
+    if (MeshLoader::loadTriMesh("meshes/peter.obj", vertices, triangles)) {
         m_shape.init(vertices, triangles);
 
         vertexToNeighbor.clear();
@@ -89,7 +89,7 @@ void ARAP::move(int vertex, Vector3f targetPosition)
     int iter = 0;
     float bestenergy = std::numeric_limits<float>::infinity();
     std::vector<Eigen::Vector3f> best_est;
-    while (iter < 10){
+    while (iter < 1){
         // Compute the best-fit rotation matrices R
         computeBestFitRotations(new_vertices);
 
@@ -109,10 +109,16 @@ void ARAP::move(int vertex, Vector3f targetPosition)
 }
 
 void ARAP::update(){
-    edgeToCotWeight.clear();
-    initial_vertices = m_shape.getVertices();
-    computeCotangentWeight();
-    setLMatrix();
+    if (ori_anchors != m_shape.getAnchors()){
+        ori_anchors = m_shape.getAnchors();
+        setLMatrixConstraint();
+    }
+    else if (initial_vertices != m_shape.getVertices()){
+        edgeToCotWeight.clear();
+        initial_vertices = m_shape.getVertices();
+        computeCotangentWeight();
+        setLMatrix();
+    }
 }
 
 void ARAP::computeCotangentWeight(){
@@ -191,6 +197,29 @@ void ARAP::setLMatrix(){
     // if (m_LDecomposition.info() != Eigen::Success) {
     //     throw std::runtime_error("Failed to decompose the L matrix");
     // }
+}
+
+void ARAP::setLMatrixConstraint(){
+    int numVertices = m_shape.getVertices().size();
+
+    // Apply user constraints
+    const std::unordered_set<int>& anchors = m_shape.getAnchors();
+    #pragma omp parallel for
+    for (int anchor : anchors) {
+        m_LMatrix.coeffRef(anchor, anchor) = 1;
+
+        // Set all off-diagonal entries in the row and column to zero
+    #pragma omp parallel for
+        for (int k = 0; k < numVertices; ++k) {
+            if (k != anchor) {
+                m_LMatrix.coeffRef(anchor, k) = 0;
+                m_LMatrix.coeffRef(k, anchor) = 0;
+            }
+        }
+    }
+
+    // Precompute the decomposition of the L matrix
+    m_LDecomposition.compute(m_LMatrix);
 }
 
 void ARAP::computeBestFitRotations(std::vector<Eigen::Vector3f> deformedVertices) {

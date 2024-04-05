@@ -20,8 +20,8 @@ public:
     void move(int vertex, Eigen::Vector3f pos);
     void computeCotangentWeight();
     void setLMatrix();
+    void setLMatrixConstraint();
     void computeBestFitRotations(std::vector<Eigen::Vector3f> deformedVertices);
-    void applyLMatrixConstraints(Eigen::SparseMatrix<float> &L);
     float optimizePositions(std::vector<Eigen::Vector3f> deformedVertices);
     void applyConstraints(std::vector<Eigen::Vector3f> deformedVertices, Eigen::MatrixXf &b);
     void update();
@@ -33,6 +33,7 @@ public:
     Eigen::SimplicialLDLT<Eigen::SparseMatrix<float>> m_LDecomposition;
     std::vector<Eigen::Matrix3f> m_rotations;
     std::unordered_set<int> ori_anchors;
+    std::vector<Eigen::Vector3f> ori_pos;
     std::vector<Eigen::Vector3f> curr_est;
     bool startmoving = false;
 
